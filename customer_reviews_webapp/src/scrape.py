@@ -53,14 +53,15 @@ def scrape(site):
 			button.send_keys(Keys.RETURN)
 			WebDriverWait(browser, timeout=10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "_2xg6Ul")))
 
-			read_more_btns = browser.find_elements_by_class_name('_1EPkIx')
-			
+			try:
+				read_more_btns = browser.find_elements_by_class_name('_1EPkIx')
 
-			for rm in read_more_btns:
-				browser.execute_script("return arguments[0].scrollIntoView();", rm)
-				browser.execute_script("window.scrollBy(0, -150);")
-				rm.click()
-
+				for rm in read_more_btns:
+					browser.execute_script("return arguments[0].scrollIntoView();", rm)
+					browser.execute_script("window.scrollBy(0, -150);")
+					rm.click()
+			except:
+				pass
 			page_source = browser.page_source
 
 			soup = BeautifulSoup(page_source, "lxml")
@@ -68,6 +69,10 @@ def scrape(site):
 			product_title = soup.find_all("div", class_="_1SFrA2")
 			if product_name is None:
 				product_name = product_title[0].text
+				print collection.find({'name':product_name}).count()
+				if collection.find({'name':product_name}).count() > 0:
+					browser.close()
+					return product_name
 
 			for tag in ans:
 				# title = str(tag.find("p", class_="_2xg6Ul").string).replace(u"\u2018", "'").replace(u"\u2019", "'")
@@ -79,6 +84,7 @@ def scrape(site):
 				# print content
 				content = remove_non_ascii_1(content)
 				content.encode('ascii','ignore')
+				content = content.replace('READ MORE','')
 				# content = content[15:-7]
 
 				votes = tag.find_all("span", class_="_1_BQL8")

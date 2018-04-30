@@ -48,16 +48,18 @@ def home(request):
 		getOpinionWords()
 		normalizeFeatures()
 		dic = json.load(open('opinion_words.txt'))
-		df = pd.read_csv("all_reviews.csv")
+		dic = {k:[list(set(v[0])),list(set(v[1]))] for k,v in dic.items()}
+		df = pd.read_csv("all_reviews.csv",delimiter='\t')
 		id_to_title = {}
 		id_to_text = {}
 		for idx,row in df.iterrows():
 			id_to_title[row['id']] = row['summary']
 			id_to_text[row['id']] = row['text']
 		context = {
-			'heading':'Here are the features of the product along with opinion words for %s'%(product_name) ,
+			'heading':'Here are the features along with opinion words for %s'%(product_name) ,
 			'opinion_words':dic,
 			'id_to_text':id_to_text,
-			'id_to_title':id_to_title
+			'id_to_title':id_to_title,
+			'total':len(df)
 		}
 	return render(request,'index.html',context)

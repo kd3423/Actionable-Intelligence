@@ -80,18 +80,23 @@
         </div>
 
         {% for feature, list in opinion_words.items %}
-        <div class="row">
+        <div class="container">
           <h1> Feature name: {{feature}} </h1>
           <h2> Opinion words </h2>
           {% for opinion in list.0 %}
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <h2>{{opinion}}</h2>
+          <div class="row">
+            <div class="col-lg-10 offset-lg-2">
+                <h3>{{opinion}}</h3>
             </div>
+          </div>
           {% endfor %}
+          <h2> Filtered Reviews ({{ list.1|length }} out of {{total}})</h2>
           {% for review_id in list.1 %}
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <h3>{{ id_to_title|get_item:review_id }}</h3>
-                <p>{{ id_to_text|get_item:review_id }}</p>
+            <div class="row">
+              <div class="col-lg-10 offset-lg-2">
+                  <h3>{{ id_to_title | get_item:review_id }}</h3>
+                  <p>{{ id_to_text | get_item:review_id }}</p>
+              </div>
             </div>
           {% endfor %}
         </div>
