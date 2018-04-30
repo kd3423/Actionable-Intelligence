@@ -20,32 +20,36 @@ for id_ in pos_tag:
 			if pos_tags[j+1][1] == 'JJ':
 				if pos_tags[j+1][0] not in opinion_words and pos_tags[j+1][0] not in stop_eng and pos_tags[j+1][0].isalnum():
 					if pos_tags[j][0] in opinion_words:
-						opinion_words[pos_tags[j][0]].append(pos_tags[j+1][0])
+						opinion_words[pos_tags[j][0]][0].append(pos_tags[j+1][0])
+						opinion_words[pos_tags[j][0]][1].append(id_)
 					else:
-						opinion_words[pos_tags[j][0]] = [pos_tags[j+1][0]]
+						opinion_words[pos_tags[j][0]] = [[pos_tags[j+1][0]],[id_]]
 		if pos_tags[j][0] in features_list and j+2 < len(pos_tags):
 			if pos_tags[j+2][1] == 'JJ':
 				if pos_tags[j+2][0] not in opinion_words and pos_tags[j+2][0] not in stop_eng and pos_tags[j+2][0].isalnum():
 					if pos_tags[j][0] in opinion_words:
-						opinion_words[pos_tags[j][0]].append(pos_tags[j+2][0])
+						opinion_words[pos_tags[j][0]][0].append(pos_tags[j+2][0])
+						opinion_words[pos_tags[j][0]][1].append(id_)
 					else:
-						opinion_words[pos_tags[j][0]] = [pos_tags[j+2][0]]
+						opinion_words[pos_tags[j][0]] = [[pos_tags[j+2][0]],[id_]]
 
 		if pos_tags[j][0] in features_list and j-1 > 0:
 			if pos_tags[j-1][1] == 'JJ':
 				if pos_tags[j-1][0] not in opinion_words and pos_tags[j-1][0] not in stop_eng and pos_tags[j-1][0].isalnum():
 					if pos_tags[j][0] in opinion_words:
-						opinion_words[pos_tags[j][0]].append(pos_tags[j-1][0])
+						opinion_words[pos_tags[j][0]][0].append(pos_tags[j-1][0])
+						opinion_words[pos_tags[j][0]][1].append(id_)
 					else:
-						opinion_words[pos_tags[j][0]] = [pos_tags[j-1][0]]
+						opinion_words[pos_tags[j][0]] = [[pos_tags[j-1][0]],[id_]]
 		
 		if pos_tags[j][0] in features_list and j-2 > 0:
 			if pos_tags[j-2][1] == 'JJ':
 				if pos_tags[j-2][0] not in opinion_words and pos_tags[j-2][0] not in stop_eng and pos_tags[j-2][0].isalnum():
 					if pos_tags[j][0] in opinion_words:
-						opinion_words[pos_tags[j][0]].append(pos_tags[j-2][0])
+						opinion_words[pos_tags[j][0]][0].append(pos_tags[j-2][0])
+						opinion_words[pos_tags[j][0]][1].append(id_)
 					else:
-						opinion_words[pos_tags[j][0]] = [pos_tags[j-2][0]]
+						opinion_words[pos_tags[j][0]] = [[pos_tags[j-2][0]],[id_]]
 # print opinion_words
 
 f= open('opinion_words.txt','w')
