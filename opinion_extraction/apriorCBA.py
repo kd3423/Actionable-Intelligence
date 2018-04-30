@@ -42,13 +42,19 @@ def Apriori_count_subset(Canditate,Canditate_len):
 minsupport = 7
 C1={} 
 file = open('new_transaction.txt')
+#Get the number of lines of this file and just take 1% of that number for MinSupport
+cnt = 0
 """Count one canditate"""
 for line in file:
+    cnt += 1
     for item in line.split():
         if item in C1:
             C1[item] +=1
         else:
             C1[item] = 1
+minsupport = int(cnt/100)
+if minsupport == 0:
+    minsupport = 1
 file.close()
 C1.keys().sort()
 L = []

@@ -1,1 +1,1 @@
-[['bass', 'games', 'gaming', 'headphone', 'headphones', 'headset', 'mic', 'microphone', 'money', 'music', 'option', 'p100', 'pc', 'phone', 'price', 'product', 'ps4', 'quality', 'range', 'siberia', 'sound', 'steelseries', 'volume']]
+[['bass', 'button', 'controller', 'experience', 'games', 'gaming', 'head', 'headphone', 'headphones', 'headset', 'mic', 'microphone', 'mistake', 'money', 'morevery', 'music', 'option', 'p100', 'pc', 'people', 'phone', 'point', 'price', 'problem', 'product', 'ps4', 'quality', 'range', 'siberia', 'sound', 'steelseries', 'volume', 'wire']]
