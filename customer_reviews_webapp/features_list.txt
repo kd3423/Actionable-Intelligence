@@ -1,1 +1,1 @@
-[['bass', 'headphone', 'headphones', 'headset', 'pc', 'price', 'product', 'quality', 'sound']]
+[['apple', 'day', 'delivery', 'display', 'face', 'id', 'iphone', 'phone', 'product', 'quality', 'thanks', 'time']]

@@ -28,6 +28,7 @@ def make_csv(product_name):
 	for doc in curr:
 		s = '%d\t%s\t%s\t0\n'%(count,doc['review title'],doc['content'])
 		arr.append(s)
+		count += 1
 	f = open('all_reviews.csv','w')
 	for x in arr:
 		f.write(x)

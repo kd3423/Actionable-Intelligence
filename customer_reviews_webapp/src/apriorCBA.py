@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 def Apriori_gen(Itemset, lenght):
     """Too generate new (k+1)-itemsets can see README Join Stage"""
     canditate = []

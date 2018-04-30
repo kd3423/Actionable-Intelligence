@@ -1,3 +1,4 @@
+import json
 def normalizeFeatures():
 	f = open("fuzzy_dict.txt")
 	fuzzy = eval(f.read())
@@ -24,5 +25,5 @@ def normalizeFeatures():
 			new_opinion[op] = opinions[op]
 
 	f = open("opinion_words.txt","w")
-	f.write(str(new_opinion))
+	f.write(json.dumps(new_opinion))
 	f.close()

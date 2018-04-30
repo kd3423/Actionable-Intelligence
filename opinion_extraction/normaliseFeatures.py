@@ -1,3 +1,5 @@
+import json
+
 f = open("fuzzy_dict.txt")
 fuzzy = eval(f.read())
 f.close()
@@ -23,5 +25,5 @@ for op in opinions:
 		new_opinion[op] = opinions[op]
 
 f = open("opinion_words.txt","w")
-f.write(str(new_opinion))
+f.write(json.dumps(new_opinion))
 f.close()
