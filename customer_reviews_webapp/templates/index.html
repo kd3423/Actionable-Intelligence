@@ -78,10 +78,24 @@
             </form>
           </div>
         </div>
+
+        {% for feature, list in opinion_words.items %}
         <div class="row">
-          <p>{{ opinion_words }}</p>
+          <h1> Feature name: {{feature}} </h1>
+          <h2> Opinion words </h2>
+          {% for opinion in list.0 %}
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <h2>{{opinion}}</h2>
+            </div>
+          {% endfor %}
+          {% for review_id in list.1 %}
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <h3>{{ id_to_title|get_item:review_id }}</h3>
+                <p>{{ id_to_text|get_item:review_id }}</p>
+            </div>
+          {% endfor %}
         </div>
-        
+        {% endfor %}
       </section>
     </section>
     <!--main content end-->

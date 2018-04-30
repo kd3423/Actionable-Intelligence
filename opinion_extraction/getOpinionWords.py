@@ -3,6 +3,7 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk import word_tokenize
 from collections import Counter
+import json
 stop_eng = stopwords.words("english")
 f= open('pos_tag.txt','r')
 pos_tag = eval(f.read())
@@ -53,5 +54,5 @@ for id_ in pos_tag:
 # print opinion_words
 
 f= open('opinion_words.txt','w')
-f.write(str(opinion_words))
+f.write(json.dumps(opinion_words))
 f.close()

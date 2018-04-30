@@ -8,8 +8,16 @@ from make_transaction import make_transaction
 from apriorCBA import apriorCBA
 from pymongo import MongoClient
 from getOpinionWords import getOpinionWords
+from normalizeFeatures import normalizeFeatures
+from django.template.defaulttags import register
+import json
+import pandas as pd
 
 # Create your views here.
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 def make_csv(product_name):
 	connection = MongoClient()
 	db = connection['flipkart_reviews']
@@ -32,17 +40,23 @@ def home(request):
 		}
 	if request.method == 'POST':
 		product_name = scrape(request.POST.get('url_text'))
-		print product_name
 		make_csv(product_name)
 		check_senti()
 		make_transaction()
 		apriorCBA()
 		getOpinionWords()
-		f = open('opinion_words.txt')
-		arr = f.readlines()
-		f.close()
+		normalizeFeatures()
+		dic = json.load(open('opinion_words.txt'))
+		df = pd.read_csv("all_reviews.csv")
+		id_to_title = {}
+		id_to_text = {}
+		for idx,row in df.iterrows():
+			id_to_title[row['id']] = row['summary']
+			id_to_text[row['id']] = row['text']
 		context = {
-			'heading':'Here are the opinion words for %s'%(product_name) ,
-			'opinion_words':arr[0]
+			'heading':'Here are the features of the product along with opinion words for %s'%(product_name) ,
+			'opinion_words':dic,
+			'id_to_text':id_to_text,
+			'id_to_title':id_to_title
 		}
 	return render(request,'index.html',context)
