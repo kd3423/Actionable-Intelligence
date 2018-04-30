@@ -1,0 +1,1 @@
+[['bass', 'games', 'gaming', 'headphone', 'headphones', 'headset', 'mic', 'microphone', 'money', 'music', 'option', 'p100', 'pc', 'phone', 'price', 'product', 'ps4', 'quality', 'range', 'siberia', 'sound', 'steelseries', 'volume']]

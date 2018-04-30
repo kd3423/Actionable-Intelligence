@@ -36,6 +36,7 @@ def scrape(site):
 	collection = db['all_products']
 
 	# file = open("review.txt", "w")
+	product_name = None
 	try:
 		for count in range(1, 25):
 			time.sleep(2)
@@ -65,15 +66,20 @@ def scrape(site):
 			soup = BeautifulSoup(page_source, "lxml")
 			ans = soup.find_all("div", class_="_3DCdKt")
 			product_title = soup.find_all("div", class_="_1SFrA2")
+			if product_name is None:
+				product_name = product_title[0].text
 
 			for tag in ans:
-				title = str(tag.find("p", class_="_2xg6Ul").string).replace(u"\u2018", "'").replace(u"\u2019", "'")
+				# title = str(tag.find("p", class_="_2xg6Ul").string).replace(u"\u2018", "'").replace(u"\u2019", "'")
+				title = tag.find("p", class_="_2xg6Ul").text
 				title = remove_non_ascii_1(title)
 				title.encode('ascii','ignore')
-				content = tag.find("div", class_="qwjRop").div.prettify().replace(u"\u2018", "'").replace(u"\u2019", "'")
+				# content = tag.find("div", class_="qwjRop").div.prettify().replace(u"\u2018", "'").replace(u"\u2019", "'")
+				content = tag.find("div", class_="qwjRop").text
+				# print content
 				content = remove_non_ascii_1(content)
 				content.encode('ascii','ignore')
-				content = content[15:-7]
+				# content = content[15:-7]
 
 				votes = tag.find_all("span", class_="_1_BQL8")
 				upvotes = int(votes[0].string)
@@ -86,5 +92,6 @@ def scrape(site):
 	except:
 		print('pass with error')
 	browser.close()
+	return product_name
 	# file.close()
 
