@@ -80,9 +80,9 @@
         </div>
 
         {% for feature, list in opinion_words.items %}
-        <div class="container">
-          <h1> Feature name: {{feature}} </h1>
-          <h2> Opinion words </h2>
+        <h1 onclick="myFunction({{forloop.counter}})"> <b>Feature name:</b> {{feature}} </h1>
+        <div class="container" id="hidediv_{{forloop.counter}}" style="display: none;">
+          <h2> <b>Opinion words</b> </h2>
           {% for opinion in list.0 %}
           <div class="row">
             <div class="col-lg-10 offset-lg-2">
@@ -90,11 +90,11 @@
             </div>
           </div>
           {% endfor %}
-          <h2> Filtered Reviews ({{ list.1|length }} out of {{total}})</h2>
+          <h2> <b>Filtered Reviews</b> ({{ list.1|length }} out of {{total}})</h2>
           {% for review_id in list.1 %}
             <div class="row">
               <div class="col-lg-10 offset-lg-2">
-                  <h3>{{ id_to_title | get_item:review_id }}</h3>
+                  <h3>{{ id_to_title | get_item:review_id }} (polarity: {{ id_to_polarity | get_item:review_id }})</h3>
                   <p>{{ id_to_text | get_item:review_id }}</p>
               </div>
             </div>
@@ -137,6 +137,17 @@
   <script src="{% static 'js/jquery.autosize.min.js' %}"></script>
   <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
   <script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
+  <script type="text/javascript">
+    function myFunction(counter) {
+      
+    var x = document.getElementById("hidediv_"+(counter));
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+  </script>
 
 </body>
 

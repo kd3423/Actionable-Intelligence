@@ -1,4 +1,5 @@
 import json
+
 def normalizeFeatures():
 	f = open("fuzzy_dict.txt")
 	fuzzy = eval(f.read())

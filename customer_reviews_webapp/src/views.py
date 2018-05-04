@@ -10,6 +10,7 @@ from pymongo import MongoClient
 from getOpinionWords import getOpinionWords
 from normalizeFeatures import normalizeFeatures
 from django.template.defaulttags import register
+from textblob import TextBlob
 import json
 import pandas as pd
 
@@ -52,14 +53,19 @@ def home(request):
 		df = pd.read_csv("all_reviews.csv",delimiter='\t')
 		id_to_title = {}
 		id_to_text = {}
+		id_to_polarity = {}
 		for idx,row in df.iterrows():
 			id_to_title[row['id']] = row['summary']
 			id_to_text[row['id']] = row['text']
+			text = TextBlob(row['text'])
+			if row['id'] not in id_to_polarity:
+				id_to_polarity[row['id']] = text.sentiment.polarity
 		context = {
 			'heading':'Here are the features along with opinion words for %s'%(product_name) ,
 			'opinion_words':dic,
 			'id_to_text':id_to_text,
 			'id_to_title':id_to_title,
+			'id_to_polarity':id_to_polarity,
 			'total':len(df)
 		}
 	return render(request,'index.html',context)

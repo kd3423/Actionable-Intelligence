@@ -6,6 +6,7 @@ from collections import Counter
 import json
 
 def getOpinionWords():
+
 	stop_eng = stopwords.words("english")
 	f= open('pos_tag.txt','r')
 	pos_tag = eval(f.read())

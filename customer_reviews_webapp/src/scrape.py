@@ -95,7 +95,8 @@ def scrape(site):
 				# file.write("Upvotes : " + str(upvotes) + "\n\nDownvotes : " + str(downvotes) + "\n\n")
 				# file.write("Review Content :\n%s\n\n\n\n" % content )
 				collection.insert({'name':product_title[0].text ,'link':str(site), 'review title':str(title), 'upvotes':str(upvotes), 'downvotes': str(downvotes), 'content': str(content)})
-	except:
+	except Exception as e:
+		print e.message
 		print('pass with error')
 	browser.close()
 	return product_name

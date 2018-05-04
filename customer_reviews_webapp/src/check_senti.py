@@ -7,18 +7,12 @@ def normalize_text(s):
     s = re.sub('\s\W',' ',s)
     s = re.sub('\W\s',' ',s)
     s = re.sub('\s+',' ',s)
-    return s
 
+    return s
 def check_senti():
     news = pd.read_csv("all_reviews.csv",delimiter = '\t')
-    
-    for s in news['text']:
-        s = str(s).lower()
-        s = re.sub('\s\W',' ',s)
-        s = re.sub('\W\s',' ',s)
-        s = re.sub('\s+',' ',s)
-        # news['text'] = [normalize_text(s) for s in news['text']]
-        news['text'] += [s]
+
+    news['text'] = [normalize_text(s) for s in news['text']]
 
     final_results = dict()
     sentiments = []
@@ -45,8 +39,8 @@ def check_senti():
     f1.write(str(final_results))
     f1.close()
 
-    # f1 = open('pos_tag.txt','r')
-    # yy = eval(f1.read())
-    # print yy[0]
+    f1 = open('pos_tag.txt','r')
+    yy = eval(f1.read())
+    print yy[0]
         #break
 

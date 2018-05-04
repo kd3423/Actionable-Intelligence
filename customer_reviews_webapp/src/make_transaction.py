@@ -6,7 +6,6 @@ from nltk import word_tokenize
 from collections import Counter
 
 def make_transaction():
-
 	lemmatizer = WordNetLemmatizer()
 	stop_eng = stopwords.words("english")
 	f = open('pos_tag.txt','r')

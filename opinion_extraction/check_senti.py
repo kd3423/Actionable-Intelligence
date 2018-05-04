@@ -1,7 +1,7 @@
 from textblob import TextBlob
 import pandas as pd
 import re
-news = pd.read_csv("all_reviews_old.csv",delimiter = '\t')
+news = pd.read_csv("all_reviews.csv",delimiter = '\t')
 
 def normalize_text(s):
     s = str(s).lower()
