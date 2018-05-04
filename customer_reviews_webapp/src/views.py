@@ -10,11 +10,16 @@ from pymongo import MongoClient
 from getOpinionWords import getOpinionWords
 from normalizeFeatures import normalizeFeatures
 from django.template.defaulttags import register
+from django.utils.safestring import mark_safe
 from textblob import TextBlob
 import json
 import pandas as pd
 
 # Create your views here.
+@register.filter(is_safe=True)
+def js(obj):
+    return mark_safe(json.dumps(obj))
+
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
@@ -60,12 +65,23 @@ def home(request):
 			text = TextBlob(row['text'])
 			if row['id'] not in id_to_polarity:
 				id_to_polarity[row['id']] = text.sentiment.polarity
+		json_dic = {}
+		for k,v in dic.items():
+			json_dic[k] = {'name': k, 'children':[]}
+			for word in v[0]:
+				json_dic[k]['children'].append({'name':word,'size':721})
+		print json_dic
+		# json_dic = {
+		# 	{"name": "Feature Name","children": [{"name": "Opinion 1", "size": 721}, {"name": "Opinion 1", "size": 721}]}
+		# }
 		context = {
-			'heading':'Here are the features along with opinion words for %s'%(product_name) ,
-			'opinion_words':dic,
+			'heading':'Enter the link of a product whose reviews you want to analyze',
+			'results_heading':'Here are the features along with opinion words for %s'%(product_name) ,
+			'opinion_words':dic.items(),
 			'id_to_text':id_to_text,
 			'id_to_title':id_to_title,
 			'id_to_polarity':id_to_polarity,
-			'total':len(df)
+			'total':len(df),
+			'json_dic':json_dic
 		}
 	return render(request,'index.html',context)

@@ -1,1 +1,1 @@
-[['bass', 'earphone', 'earphones', 'noise', 'price', 'product', 'quality', 'sound']]
+[['bag', 'price', 'product', 'quality']]
